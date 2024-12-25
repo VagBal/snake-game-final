@@ -1,3 +1,4 @@
+# State pattern
 from settings import States
 
 class GameState:

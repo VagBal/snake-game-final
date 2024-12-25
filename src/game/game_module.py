@@ -6,7 +6,7 @@ from src.game.score_module import Score
 from src.game.game_manager_module import GameManager
 from src.game.command_module import MoveUp, MoveDown, MoveLeft, MoveRight
 from settings import States
-from settings import SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED
+from settings import *
 
 class Game:
     def __init__(self):
@@ -15,7 +15,7 @@ class Game:
         pygame.display.set_caption("Snake Game")
         self.clock = pygame.time.Clock()
         self.snake = Snake()
-        self.food = FoodFactory.create_food()
+        self.food = FoodFactory.create_food(ORANGE, "rectangle")
         self.score = Score()
         self.score.add_observer(self)
         self.manager = GameManager()
@@ -33,7 +33,7 @@ class Game:
 
             if self.snake.body[0] == self.food.position:
                 self.snake.grow()
-                self.food = FoodFactory.create_food()
+                self.food = FoodFactory.create_food(RED, "circle")
                 self.score.increase_score()
 
             if self.check_collisions():

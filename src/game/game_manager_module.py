@@ -1,3 +1,4 @@
+# Singleton pattern
 from settings import States
 
 class GameManager:

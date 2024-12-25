@@ -1,3 +1,4 @@
+# Command pattern
 class Command:
     def execute(self):
         pass

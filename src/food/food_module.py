@@ -1,10 +1,12 @@
 import pygame
 import random
-from settings import FOOD_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT, RED
+from settings import FOOD_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Food:
-    def __init__(self):
+    def __init__(self, color, shape):
         self.position = self.random_position()
+        self.color = color
+        self.shape = shape
     
     def random_position(self):
         # Calculate the maximum number of food items that can fit horizontally
@@ -23,4 +25,10 @@ class Food:
         return (x, y)
     
     def draw(self, screen):
-        pygame.draw.rect(screen, RED, (*self.position, FOOD_SIZE, FOOD_SIZE))
+        if self.shape == "rectangle":
+            pygame.draw.rect(screen, self.color, (*self.position, FOOD_SIZE, FOOD_SIZE))
+        elif self.shape == "circle":
+            # Calculate the center of the circle based on the position and FOOD_SIZE
+            center = (self.position[0] + FOOD_SIZE // 2, self.position[1] + FOOD_SIZE // 2)
+            # Draw the circle
+            pygame.draw.circle(screen, self.color, center, FOOD_SIZE // 2)
