@@ -1,0 +1,112 @@
+@startuml ClassDiagram
+
+package "Game" {
+    class Game {
+        - screen: pygame.Surface
+        - clock: pygame.time.Clock
+        - snake: Snake
+        - food: Food
+        - score: Score
+        - manager: GameManager
+        + run()
+        + handle_input(key)
+        + check_collisions(): bool
+        + draw()
+        + draw_score()
+        + update(score)
+    }
+
+    class GameManager {
+        - _instance: GameManager
+        - state: States
+        + __new__()
+        + init_game()
+        + change_state(new_state: States)
+        + reset()
+    }
+
+    class GameState {
+        - state: States
+        + __init__()
+        + change_state(new_state: States)
+    }
+
+    class Score {
+        - _score: int
+        - _observers: List<Observer>
+        + add_observer(observer: Observer)
+        + remove_observer(observer: Observer)
+        + notify_observers()
+        + increase_score()
+        + get_score(): int
+    }
+
+    class Food {
+        - position: tuple
+        - color: Color
+        - shape: str
+        + __init__(color: Color, shape: str)
+        + random_position(): tuple
+        + draw(screen: pygame.Surface)
+    }
+
+    class FoodFactory {
+        + create_food(color: Color, shape: str): Food
+    }
+}
+
+package "Snake" {
+    class Snake {
+        - body: List<tuple>
+        - direction: tuple
+        + __init__()
+        + move()
+        + change_direction(new_direction: tuple)
+        + grow()
+        + draw(screen: pygame.Surface)
+    }
+}
+
+package "Command" {
+    class Command {
+        + execute(snake: Snake)
+    }
+
+    class MoveUp {
+        + execute(snake: Snake)
+    }
+
+    class MoveDown {
+        + execute(snake: Snake)
+    }
+
+    class MoveLeft {
+        + execute(snake: Snake)
+    }
+
+    class MoveRight {
+        + execute(snake: Snake)
+    }
+}
+
+package "Settings" {
+    class States {
+        + START
+        + PLAYING
+        + GAME_OVER
+    }
+}
+
+Game --> Snake : contains
+Game --> Food : contains
+Game --> Score : contains
+Game --> GameManager : uses
+GameManager --> GameState : manages
+Game --> FoodFactory : uses
+Snake --> Command : uses
+Command <|-- MoveUp
+Command <|-- MoveDown
+Command <|-- MoveLeft
+Command <|-- MoveRight
+
+@enduml
