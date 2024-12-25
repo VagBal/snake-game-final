@@ -4,5 +4,4 @@ Under the scripts folder the virtual enviroment can be setup both linux and wind
 
 The app can be run with the "python -m src.main" command
 
-
-![image](https://github.com/user-attachments/assets/dae99797-468f-414d-922a-505d1aa92e6d)
+![image](https://github.com/user-attachments/assets/aff78c50-f3a3-4536-921f-95e6267d0a0f)
