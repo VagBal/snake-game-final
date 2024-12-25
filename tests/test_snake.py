@@ -1,6 +1,7 @@
 import pytest
 import pygame
 from src.snake.snake_module import Snake
+from unittest.mock import patch, MagicMock
 from settings import *
 
 # Test class for Snake
@@ -60,15 +61,19 @@ class TestSnake:
         assert len(snake.body) == 4  # Length should increase by 1
         assert snake.body[-1] == (60, 100)  # Last segment should be the same as the previous last segment
 
-    def test_draw(self):
+    @patch('pygame.draw')  # Mock the pygame.draw module
+    def test_draw(self, mock_draw):
         # Arrange
-        snake = Snake()
-        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # Placeholder, as we cannot test drawing directly
+        mock_surface = MagicMock()  # Create a mock surface to draw on
+        snake = Snake()  # Create an instance of the Snake class
+        
+        # Set the initial position of the snake
+        snake.body = [(100, 100), (90, 100), (80, 100)]  # Example body segments
         
         # Act
-        # Since we cannot directly test the drawing, we will check if the method runs without errors
-        try:
-            snake.draw(screen)  # This should run without errors
-            assert True  # If no exception is raised, the test passes
-        except Exception:
-            assert False  # If an exception is raised, the test fails
+        snake.draw(mock_surface)  # Call the draw method with the mock surface
+        
+        # Assert
+        # Check that the draw.rect method was called for each segment of the snake
+        for segment in snake.body:
+            mock_draw.rect.assert_any_call(mock_surface, (0, 255, 0), (*segment, SNAKE_SIZE, SNAKE_SIZE))

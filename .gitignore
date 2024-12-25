@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+*.pyo
 
 # C extensions
 *.so
@@ -125,3 +127,14 @@ dmypy.json
 
 # celery beat schedule file
 celerybeat-schedule
+
+# IDE Specific Files
+.vscode/
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Pygame Cache Files
+*.pdb

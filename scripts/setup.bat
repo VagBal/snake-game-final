@@ -13,4 +13,4 @@ call venv\Scripts\activate
 pip install -r requirements.txt
 
 :: Run the main script
-python -m src.main
+:: python -m src.main

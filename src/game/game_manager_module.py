@@ -15,3 +15,6 @@ class GameManager:
     
     def change_state(self, new_state):
         self.state = new_state
+
+    def reset(self):
+        self.init_game()  # Reset to initial state
